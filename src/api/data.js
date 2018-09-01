@@ -36,3 +36,9 @@ export function getDemandBySeason () {
     method: 'get'
   })
 }
+export function getCategory(){
+  return axios.request({
+    url:'/admin/getCategory',
+    method:'get'
+  })
+}
