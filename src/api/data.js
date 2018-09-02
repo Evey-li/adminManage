@@ -42,3 +42,22 @@ export function getCategory(){
     method:'get'
   })
 }
+export function updateCategoryName({newName,id}){
+  const data = {newName,id}
+  return axios.request({
+    url:'/admin/updateCategoryName',
+    data,
+    method:'post'
+  })
+}
+export function addNewCategory({newCategory}){
+  console.log(newCategory);
+
+  return axios.request({
+    url:'/admin/addNewCategory',
+    data:{
+      newCategory
+    },
+    method:'post'
+  })
+}
