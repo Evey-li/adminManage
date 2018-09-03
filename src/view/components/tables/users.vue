@@ -9,17 +9,18 @@
 
 <script>
 import Tables from '_c/tables'
-import { getTableUser } from '@/api/data'
+import { getTableUser, removeUserById } from '@/api/data'
 export default {
   name: 'tables_page',
   components: {
     Tables
   },
-  data () {
+  data() {
     return {
       columns: [
         // {title: '姓名', key: 'realName', sortable: true},
         // {title: '昵称', key: 'userName', editable: true},
+        // { title: 'id', key: 'id', className: 'hide' },
         { title: '姓名', key: 'realName' },
         { title: '昵称', key: 'userName' },
         { title: '国家', key: 'country' },
@@ -58,16 +59,29 @@ export default {
     }
   },
   methods: {
-    handleDelete (params) {
-      console.log(params)
+    handleDelete(params) {
+      // console.log(params)
+      const id = this.tableData[params.index].id
+      if (!id) {
+        console.log("请选择要删除的一行数据！");
+      }
+      else {
+        removeUserById({ id }).then(result => {
+          if (result) {
+            console.log("用户删除成功！");
+          } else {
+            console.log("用户删除失败");
+          }
+        })
+      }
     },
-    exportExcel () {
+    exportExcel() {
       this.$refs.tables.exportCsv({
         filename: `table-${(new Date()).valueOf()}.csv`
       })
     }
   },
-  mounted () {
+  mounted() {
     getTableUser().then(res => {
       // console.log(res)
       let userData = []
@@ -80,6 +94,7 @@ export default {
             type = '需求人'
           }
           userData.push({
+            id: res[i]._id,
             realName: res[i].realName,
             userName: res[i].userName,
             country: res[i].country,
@@ -97,4 +112,7 @@ export default {
 </script>
 
 <style>
+.hide {
+  display: none;
+}
 </style>

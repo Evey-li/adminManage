@@ -9,23 +9,23 @@
 
 <script>
 import Tables from '_c/tables'
-import { getTableDemand } from '@/api/data'
+import { getTableDemand, removeDemandById } from '@/api/data'
 export default {
   name: 'tables_demand',
   components: {
     Tables
   },
-  data () {
+  data() {
     return {
       columns: [
         // {title: '姓名', key: 'realName', sortable: true},
         // {title: '昵称', key: 'userName', editable: true},
-        {title: '需求名', key: 'demandName'},
-        {title: '周转时间/天', key: 'workTime'},
-        {title: '奖励报酬/￥', key: 'payment'},
-        {title: '发布时间', key: 'releaseTime'},
-        {title: '需求状态', key: 'status'},
-        {title: '拍摄地点', key: 'place'},
+        { title: '需求名', key: 'demandName' },
+        { title: '周转时间/天', key: 'workTime' },
+        { title: '奖励报酬/￥', key: 'payment' },
+        { title: '发布时间', key: 'releaseTime' },
+        { title: '需求状态', key: 'status' },
+        { title: '拍摄地点', key: 'place' },
         {
           title: 'Handle',
           key: 'handle',
@@ -44,9 +44,9 @@ export default {
                   }
                 }
               }
-              // , [
-              //   h('Button', '自定义删除')
-              // ]
+                // , [
+                //   h('Button', '自定义删除')
+                // ]
               )
             }
           ]
@@ -56,28 +56,42 @@ export default {
     }
   },
   methods: {
-    handleDelete (params) {
-      console.log(params)
+    handleDelete(params) {
+      // console.log(params)
+      const id = this.tableData[params.index].id
+      if (!id) {
+        console.log("请选择要删除的一行数据！");
+      }
+      else {
+        removeDemandById({ id }).then(result => {
+          if (result) {
+            console.log("用户删除成功！");
+          } else {
+            console.log("用户删除失败");
+          }
+        })
+      }
     },
-    exportExcel () {
+    exportExcel() {
       this.$refs.tables.exportCsv({
         filename: `table-${(new Date()).valueOf()}.csv`
       })
     }
   },
-  mounted () {
+  mounted() {
     getTableDemand().then(res => {
       console.log(res)
       let demandData = []
       if (res) {
         for (let i = 0; i < res.length; i++) {
           demandData.push({
-          demandName: res[i].title,
-          workTime: res[i].workTime,
-          payment: res[i].payment,
-          releaseTime: res[i].releaseTime,
-          status: res[i].status,
-          place: res[i].place,
+            id: res[i]._id,
+            demandName: res[i].title,
+            workTime: res[i].workTime,
+            payment: res[i].payment,
+            releaseTime: res[i].releaseTime,
+            status: res[i].status,
+            place: res[i].place,
           })
         }
         this.tableData = demandData

@@ -51,12 +51,37 @@ export function updateCategoryName({newName,id}){
   })
 }
 export function addNewCategory({newCategory}){
-  console.log(newCategory);
-
   return axios.request({
     url:'/admin/addNewCategory',
     data:{
       newCategory
+    },
+    method:'post'
+  })
+}
+export function removeUserById({id}){
+  return axios.request({
+    url:'/admin/removeUserById',
+    data:{
+      id
+    },
+    method:'post'
+  })
+}
+export function removeDemandById({id}){
+  return axios.request({
+    url:'/admin/removeDemandById',
+    data:{
+      id
+    },
+    method:'post'
+  })
+}
+export function removePhotoById({id}){
+  return axios.request({
+    url:'/admin/removePhotoById',
+    data:{
+      id
     },
     method:'post'
   })

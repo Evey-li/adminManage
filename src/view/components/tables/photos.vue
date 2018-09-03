@@ -9,15 +9,13 @@
 
 <script>
 import Tables from '_c/tables'
-import {
-  getTablePhoto
-} from '@/api/data'
+import { getTablePhoto, removePhotoById } from '@/api/data'
 export default {
   name: 'tables_photo',
   components: {
     Tables
   },
-  data () {
+  data() {
     return {
       columns: [
         // {title: '姓名', key: 'realName', sortable: true},
@@ -31,34 +29,34 @@ export default {
                 'overflow': 'visible'
               }
             }, [
-              h('div', {
-                style: {
-                  height: '100px',
-                  'background-image': `url(${params.row.photo})`,
-                  'background-size': 'cover',
-                  'background-repeat': 'no-repeat',
-                  'margin': '5px'
-                },
-                on: {
-                  mouseOver: this.viewPhoto
-                }
-              })
-              // h('div', {
-              //   class: {
-              //     foo: true,
-              //   },
-              //   style: {
-              //     'height': "100px",
-              //     'width': "100px",
-              //     "background-color": '#444',
-              // "position": 'absolute',
-              // 'top': '100px',
-              // 'left': '200px',
-              // 'z-index': '1000'
-              // 'display': 'none'
-              //   }
-              // })
-            ])
+                h('div', {
+                  style: {
+                    height: '100px',
+                    'background-image': `url(${params.row.photo})`,
+                    'background-size': 'cover',
+                    'background-repeat': 'no-repeat',
+                    'margin': '5px'
+                  },
+                  on: {
+                    mouseOver: this.viewPhoto
+                  }
+                })
+                // h('div', {
+                //   class: {
+                //     foo: true,
+                //   },
+                //   style: {
+                //     'height': "100px",
+                //     'width': "100px",
+                //     "background-color": '#444',
+                // "position": 'absolute',
+                // 'top': '100px',
+                // 'left': '200px',
+                // 'z-index': '1000'
+                // 'display': 'none'
+                //   }
+                // })
+              ])
           }
         },
         {
@@ -107,19 +105,29 @@ export default {
     }
   },
   methods: {
-    viewPhoto () {
-
+    handleDelete(params) {
+      // console.log(params)
+      const id = this.tableData[params.index].id
+      if (!id) {
+        console.log("请选择要删除的一行数据！");
+      }
+      else {
+        removePhotoById({ id }).then(result => {
+          if (result) {
+            console.log("图片删除成功！");
+          } else {
+            console.log("图片删除失败");
+          }
+        })
+      }
     },
-    handleDelete (params) {
-      console.log(params)
-    },
-    exportExcel () {
+    exportExcel() {
       this.$refs.tables.exportCsv({
         filename: `table-${(new Date()).valueOf()}.csv`
       })
     }
   },
-  mounted () {
+  mounted() {
     getTablePhoto().then(res => {
       let photos = []
       if (res) {
@@ -130,6 +138,7 @@ export default {
             image = `http://127.0.0.1:7001${image}`
           }
           photos.push({
+            id: res[i]._id,
             photo: image,
             creatorName: res[i].user.userName,
             category: res[i].category.name,
