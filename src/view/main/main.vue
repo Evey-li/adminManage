@@ -41,8 +41,8 @@ import Fullscreen from './components/fullscreen'
 import Language from './components/language'
 import { mapMutations, mapActions } from 'vuex'
 import { getNewTagList, getNextRoute, routeEqual } from '@/libs/util'
-import minLogo from '@/assets/images/logo-min.jpg'
-import maxLogo from '@/assets/images/logo.jpg'
+import minLogo from '@/assets/images/logo5-min.png'
+import maxLogo from '@/assets/images/logo5.png'
 import './main.less'
 export default {
   name: 'Main',
@@ -54,7 +54,7 @@ export default {
     Fullscreen,
     User
   },
-  data () {
+  data() {
     return {
       collapsed: false,
       minLogo,
@@ -63,22 +63,22 @@ export default {
     }
   },
   computed: {
-    tagNavList () {
+    tagNavList() {
       return this.$store.state.app.tagNavList
     },
-    tagRouter () {
+    tagRouter() {
       return this.$store.state.app.tagRouter
     },
-    userAvator () {
+    userAvator() {
       return this.$store.state.user.avatorImgPath
     },
-    cacheList () {
+    cacheList() {
       return this.tagNavList.length ? this.tagNavList.filter(item => !(item.meta && item.meta.notCache)).map(item => item.name) : []
     },
-    menuList () {
+    menuList() {
       return this.$store.getters.menuList
     },
-    local () {
+    local() {
       return this.$store.state.app.local
     }
   },
@@ -92,7 +92,7 @@ export default {
     ...mapActions([
       'handleLogin'
     ]),
-    turnToPage (route) {
+    turnToPage(route) {
       let { name, params, query } = {}
       if (typeof route === 'string') name = route
       else {
@@ -110,10 +110,10 @@ export default {
         query
       })
     },
-    handleCollapsedChange (state) {
+    handleCollapsedChange(state) {
       this.collapsed = state
     },
-    handleCloseTag (res, type, route) {
+    handleCloseTag(res, type, route) {
       let openName = ''
       if (type === 'all') {
         this.turnToPage('home')
@@ -130,17 +130,17 @@ export default {
       this.setTagNavList(res)
       this.$refs.sideMenu.updateOpenName(openName)
     },
-    handleClick (item) {
+    handleClick(item) {
       this.turnToPage(item)
     }
   },
   watch: {
-    '$route' (newRoute) {
+    '$route'(newRoute) {
       this.setBreadCrumb(newRoute.matched)
       this.setTagNavList(getNewTagList(this.tagNavList, newRoute))
     }
   },
-  mounted () {
+  mounted() {
     /**
      * @description 初始化设置面包屑导航和标签导航
      */

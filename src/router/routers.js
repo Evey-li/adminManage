@@ -75,22 +75,23 @@ export default [{
       title: '用户管理'
     },
     component: Main,
-    children: [{
-        path: 'count_to_page',
-        name: 'count_to_page',
-        meta: {
-          icon: 'md-trending-up',
-          title: '数字渐变'
-        },
-        component: () =>
-          import ('@/view/components/count-to/count-to.vue')
-      },
+    children: [
+      // {
+      //   path: 'count_to_page',
+      //   name: 'count_to_page',
+      //   meta: {
+      //     icon: 'md-trending-up',
+      //     title: '数字渐变'
+      //   },
+      //   component: () =>
+      //     import ('@/view/components/count-to/count-to.vue')
+      // },
       {
         path: 'tables_page',
         name: 'tables_page',
         meta: {
-          icon: 'md-grid',
-          title: '用户列表'
+          icon: '_users',
+          title: '用户管理'
         },
         component: () =>
           import ('@/view/components/tables/users.vue')
@@ -105,36 +106,37 @@ export default [{
       title: '需求管理'
     },
     component: Main,
-    children: [{
-        path: 'update_table_page',
-        name: 'update_table_page',
-        meta: {
-          icon: 'ios-document',
-          title: '上传Csv'
-        },
-        component: () =>
-          import ('@/view/update/update-table.vue')
-      },
+    children: [
+      // {
+      //   path: 'update_table_page',
+      //   name: 'update_table_page',
+      //   meta: {
+      //     icon: 'ios-document',
+      //     title: '上传Csv'
+      //   },
+      //   component: () =>
+      //     import ('@/view/update/update-table.vue')
+      // },
       {
         path: 'tables_demand',
         name: 'tables_demand',
         meta: {
-          icon: 'md-grid',
-          title: '需求列表'
+          icon: '_demand',
+          title: '需求管理'
         },
         component: () =>
           import ('@/view/components/tables/demands.vue')
       },
-      {
-        path: 'update_paste_page',
-        name: 'update_paste_page',
-        meta: {
-          icon: 'md-clipboard',
-          title: '粘贴表格数据'
-        },
-        component: () =>
-          import ('@/view/update/update-paste.vue')
-      }
+      // {
+      //   path: 'update_paste_page',
+      //   name: 'update_paste_page',
+      //   meta: {
+      //     icon: 'md-clipboard',
+      //     title: '粘贴表格数据'
+      //   },
+      //   component: () =>
+      //     import ('@/view/update/update-paste.vue')
+      // }
     ]
   },
   {
@@ -151,32 +153,32 @@ export default [{
         path: 'tables_photo',
         name: 'tables_photo',
         meta: {
-          icon: 'md-grid',
-          title: '图片列表'
+          icon: '_photos',
+          title: '图片管理'
         },
         component: () =>
           import ('@/view/components/tables/photos.vue')
       },
-      {
-        path: 'upload-excel',
-        name: 'upload-excel',
-        meta: {
-          icon: 'md-add',
-          title: '导入EXCEL'
-        },
-        component: () =>
-          import ('@/view/excel/upload-excel.vue')
-      },
-      {
-        path: 'export-excel',
-        name: 'export-excel',
-        meta: {
-          icon: 'md-download',
-          title: '导出EXCEL'
-        },
-        component: () =>
-          import ('@/view/excel/export-excel.vue')
-      }
+      // {
+      //   path: 'upload-excel',
+      //   name: 'upload-excel',
+      //   meta: {
+      //     icon: 'md-add',
+      //     title: '导入EXCEL'
+      //   },
+      //   component: () =>
+      //     import ('@/view/excel/upload-excel.vue')
+      // },
+      // {
+      //   path: 'export-excel',
+      //   name: 'export-excel',
+      //   meta: {
+      //     icon: 'md-download',
+      //     title: '导出EXCEL'
+      //   },
+      //   component: () =>
+      //     import ('@/view/excel/export-excel.vue')
+      // }
     ]
   },
 
